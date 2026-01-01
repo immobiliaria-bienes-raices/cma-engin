@@ -1,0 +1,167 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Real Estate Property Schema",
+  "description": "Unified schema for Colombian real estate properties based on the analysis table format",
+  "type": "object",
+  "required": [
+    "address",
+    "operation",
+    "area_habitable",
+    "bedrooms",
+    "bathrooms",
+    "pricing"
+  ],
+  "properties": {
+    "address": {
+      "type": "string",
+      "description": "Dirección, links - Full property address"
+    },
+    "operation": {
+      "type": "string",
+      "enum": ["ARRIENDO", "VENTA"],
+      "description": "ARRIENDO or VENTA - Type of operation"
+    },
+    "area_habitable": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Area Habitable (m2) - Habitable area in square meters"
+    },
+    "terrace": {
+      "type": "boolean",
+      "description": "Terraza - Whether the property has a terrace"
+    },
+    "area_total": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Area Total (m2) - Total area in square meters"
+    },
+    "administration": {
+      "type": "number",
+      "minimum": 0,
+      "description": "administracion - Monthly administration fee"
+    },
+    "bedrooms": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Alcobas - Number of bedrooms"
+    },
+    "bathrooms": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Baños - Number of bathrooms (can be decimal for half bathrooms)"
+    },
+    "parking": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Parqueadero - Number of parking spaces"
+    },
+    "walking_closet": {
+      "type": "boolean",
+      "description": "Walking closet - Whether the property has a walking closet"
+    },
+    "loft": {
+      "type": "boolean",
+      "description": "LOFT - Whether the property has a loft"
+    },
+    "study_room": {
+      "type": "boolean",
+      "description": "Estudio/Sala TV - Whether the property has a study room or TV room"
+    },
+    "floor": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Piso - Floor number"
+    },
+    "deposit": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Depósito - Number of storage rooms"
+    },
+    "terrace_area": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Terraza/Balcón (Área) - Terrace/balcony area in square meters"
+    },
+    "construction_age": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Edad construcción - Age of construction in years"
+    },
+    "interior_exterior": {
+      "type": "string",
+      "enum": ["I", "E"],
+      "description": "Interior/Exterior - 'I' for Interior, 'E' for Exterior"
+    },
+    "elevator": {
+      "type": "boolean",
+      "description": "Ascensor - Whether the building has an elevator"
+    },
+    "finish_quality": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5,
+      "description": "Calidad Acabados - Quality of finishes (1-5 scale)"
+    },
+    "conservation_state": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5,
+      "description": "Estado, Conservación - Conservation state (1-5 scale)"
+    },
+    "location_quality": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5,
+      "description": "Ubicación - Location quality rating (1-5 scale)"
+    },
+    "stratum": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 6,
+      "description": "Estrato - Socioeconomic stratum (1-6)"
+    },
+    "observations": {
+      "type": "string",
+      "description": "observaciones - Additional observations about the property"
+    },
+    "contact_method": {
+      "type": "string",
+      "description": "Medio de Contacto - Contact method"
+    },
+    "contact_info": {
+      "type": "string",
+      "description": "Contacto - Contact information"
+    },
+    "pricing": {
+      "type": "object",
+      "required": ["area", "price_per_m2", "total_area", "total_price_per_m2", "admin_per_m2"],
+      "properties": {
+        "area": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Area (m2) - Area in square meters"
+        },
+        "price_per_m2": {
+          "type": "number",
+          "minimum": 0,
+          "description": "$por m2 - Price per square meter"
+        },
+        "total_area": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Area (m2) - Total area in square meters"
+        },
+        "total_price_per_m2": {
+          "type": "number",
+          "minimum": 0,
+          "description": "$ x m2 - Total price per square meter"
+        },
+        "admin_per_m2": {
+          "type": "number",
+          "minimum": 0,
+          "description": "$ x m2 - Administration fee per square meter"
+        }
+      }
+    }
+  }
+}

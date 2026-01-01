@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Analytics - Property Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .form-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .form-section h4 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .required {
+            color: #e74c3c;
+        }
+        .loading {
+            display: none;
+        }
+        .result-section {
+            display: none;
+        }
+        .btn-custom {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .btn-custom:hover {
+            background: linear-gradient(45deg, #2980b9, #1f4e79);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .alert-custom {
+            border-radius: 10px;
+            border: none;
+        }
+        .card-custom {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .header-custom {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 0;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-custom">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h1><i class="fas fa-home"></i> Real Estate Analytics</h1>
+                    <p class="lead">Sistema de Análisis de Propiedades Inmobiliarias</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Navigation Tabs -->
+        <ul class="nav nav-tabs mb-4" id="mainTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="form-tab" data-bs-toggle="tab" data-bs-target="#form-panel" type="button" role="tab">
+                    <i class="fas fa-edit"></i> Formulario de Propiedad
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="csv-tab" data-bs-toggle="tab" data-bs-target="#csv-panel" type="button" role="tab">
+                    <i class="fas fa-file-csv"></i> Cargar CSV
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="mainTabsContent">
+            <!-- Property Form Panel -->
+            <div class="tab-pane fade show active" id="form-panel" role="tabpanel">
+                <form id="propertyForm">
+                    <!-- Basic Information -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-info-circle"></i> Información Básica</h4>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label for="address" class="form-label">Dirección <span class="required">*</span></label>
+                                <input type="text" class="form-control" id="address" name="address" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="operation" class="form-label">Operación <span class="required">*</span></label>
+                                <select class="form-select" id="operation" name="operation" required>
+                                    <option value="VENTA">Venta</option>
+                                    <option value="ARRIENDO">Arriendo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Property Details -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-home"></i> Detalles de la Propiedad</h4>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="area_habitable" class="form-label">Área Habitable (m²) <span class="required">*</span></label>
+                                <input type="number" class="form-control" id="area_habitable" name="area_habitable" step="0.01" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="area_total" class="form-label">Área Total (m²)</label>
+                                <input type="number" class="form-control" id="area_total" name="area_total" step="0.01">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="bedrooms" class="form-label">Alcobas <span class="required">*</span></label>
+                                <input type="number" class="form-control" id="bedrooms" name="bedrooms" min="0" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="bathrooms" class="form-label">Baños <span class="required">*</span></label>
+                                <input type="number" class="form-control" id="bathrooms" name="bathrooms" step="0.5" min="0" required>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-3">
+                                <label for="parking" class="form-label">Parqueaderos</label>
+                                <input type="number" class="form-control" id="parking" name="parking" min="0">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="deposit" class="form-label">Depósitos</label>
+                                <input type="number" class="form-control" id="deposit" name="deposit" min="0">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="floor" class="form-label">Piso</label>
+                                <input type="number" class="form-control" id="floor" name="floor" min="0">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="stratum" class="form-label">Estrato</label>
+                                <select class="form-select" id="stratum" name="stratum">
+                                    <option value="0">Seleccionar</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Amenities -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-star"></i> Amenidades</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="terrace" name="terrace">
+                                    <label class="form-check-label" for="terrace">Terraza</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="walking_closet" name="walking_closet">
+                                    <label class="form-check-label" for="walking_closet">Walking Closet</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="loft" name="loft">
+                                    <label class="form-check-label" for="loft">Loft</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="study_room" name="study_room">
+                                    <label class="form-check-label" for="study_room">Estudio/Sala TV</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="elevator" name="elevator">
+                                    <label class="form-check-label" for="elevator">Ascensor</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="pool" name="pool">
+                                    <label class="form-check-label" for="pool">Piscina</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="gym" name="gym">
+                                    <label class="form-check-label" for="gym">Gimnasio</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="security" name="security">
+                                    <label class="form-check-label" for="security">Vigilancia</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quality Ratings -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-chart-bar"></i> Calificaciones de Calidad (1-5)</h4>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="finish_quality" class="form-label">Calidad Acabados</label>
+                                <select class="form-select" id="finish_quality" name="finish_quality">
+                                    <option value="3">3 - Regular</option>
+                                    <option value="1">1 - Muy Baja</option>
+                                    <option value="2">2 - Baja</option>
+                                    <option value="4">4 - Buena</option>
+                                    <option value="5">5 - Excelente</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="conservation_state" class="form-label">Estado Conservación</label>
+                                <select class="form-select" id="conservation_state" name="conservation_state">
+                                    <option value="3">3 - Regular</option>
+                                    <option value="1">1 - Muy Malo</option>
+                                    <option value="2">2 - Malo</option>
+                                    <option value="4">4 - Bueno</option>
+                                    <option value="5">5 - Excelente</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="location_quality" class="form-label">Ubicación</label>
+                                <select class="form-select" id="location_quality" name="location_quality">
+                                    <option value="3">3 - Regular</option>
+                                    <option value="1">1 - Muy Mala</option>
+                                    <option value="2">2 - Mala</option>
+                                    <option value="4">4 - Buena</option>
+                                    <option value="5">5 - Excelente</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="interior_exterior" class="form-label">Interior/Exterior</label>
+                                <select class="form-select" id="interior_exterior" name="interior_exterior">
+                                    <option value="I">Interior</option>
+                                    <option value="E">Exterior</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pricing -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-dollar-sign"></i> Información de Precios</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="price_per_m2" class="form-label">Precio por m² <span class="required">*</span></label>
+                                <input type="number" class="form-control" id="price_per_m2" name="price_per_m2" step="0.01" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="administration" class="form-label">Administración (mensual)</label>
+                                <input type="number" class="form-control" id="administration" name="administration" step="0.01">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Information -->
+                    <div class="form-section">
+                        <h4><i class="fas fa-plus-circle"></i> Información Adicional</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="construction_age" class="form-label">Edad Construcción (años)</label>
+                                <input type="number" class="form-control" id="construction_age" name="construction_age" min="0">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="terrace_area" class="form-label">Área Terraza (m²)</label>
+                                <input type="number" class="form-control" id="terrace_area" name="terrace_area" step="0.01" min="0">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <label for="contact_method" class="form-label">Medio de Contacto</label>
+                                <input type="text" class="form-control" id="contact_method" name="contact_method">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="contact_info" class="form-label">Información de Contacto</label>
+                                <input type="text" class="form-control" id="contact_info" name="contact_info">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <label for="observations" class="form-label">Observaciones</label>
+                                <textarea class="form-control" id="observations" name="observations" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-custom btn-lg">
+                            <i class="fas fa-search"></i> Procesar Propiedad
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- CSV Upload Panel -->
+            <div class="tab-pane fade" id="csv-panel" role="tabpanel">
+                <div class="form-section">
+                    <h4><i class="fas fa-file-csv"></i> Cargar Archivo CSV</h4>
+                    <form id="csvForm" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="csvFile" class="form-label">Seleccionar archivo CSV</label>
+                            <input type="file" class="form-control" id="csvFile" name="file" accept=".csv" required>
+                            <div class="form-text">Solo archivos CSV son permitidos</div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-custom btn-lg">
+                                <i class="fas fa-upload"></i> Procesar CSV
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Section -->
+        <div class="loading text-center" id="loadingSection">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Procesando...</span>
+            </div>
+            <p class="mt-3">Procesando datos, por favor espere...</p>
+        </div>
+
+        <!-- Results Section -->
+        <div class="result-section" id="resultSection">
+            <div class="card card-custom">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="fas fa-check-circle"></i> Procesamiento Completado</h5>
+                </div>
+                <div class="card-body">
+                    <div id="resultContent"></div>
+                    <div class="text-center mt-3">
+                        <a href="#" id="downloadLink" class="btn btn-success btn-lg">
+                            <i class="fas fa-download"></i> Descargar CSV Estandarizado
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error Section -->
+        <div class="alert alert-danger alert-custom" id="errorSection" style="display: none;">
+            <h5><i class="fas fa-exclamation-triangle"></i> Error</h5>
+            <p id="errorMessage"></p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Form submission for property form
+        document.getElementById('propertyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            processProperty();
+        });
+
+        // Form submission for CSV upload
+        document.getElementById('csvForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            processCSV();
+        });
+
+        function showLoading() {
+            document.getElementById('loadingSection').style.display = 'block';
+            document.getElementById('resultSection').style.display = 'none';
+            document.getElementById('errorSection').style.display = 'none';
+        }
+
+        function showError(message) {
+            document.getElementById('loadingSection').style.display = 'none';
+            document.getElementById('resultSection').style.display = 'none';
+            document.getElementById('errorSection').style.display = 'block';
+            document.getElementById('errorMessage').textContent = message;
+        }
+
+        function showResult(data) {
+            document.getElementById('loadingSection').style.display = 'none';
+            document.getElementById('resultSection').style.display = 'block';
+            document.getElementById('errorSection').style.display = 'none';
+            
+            let content = `
+                <h6>Resultados del Procesamiento:</h6>
+                <ul class="list-unstyled">
+                    <li><strong>URL de Búsqueda:</strong> <a href="${data.search_url}" target="_blank">Ver en Fincaraiz</a></li>
+                    <li><strong>Propiedades Encontradas:</strong> ${data.properties_found}</li>
+                    <li><strong>Propiedades Convertidas:</strong> ${data.converted_properties}</li>
+                </ul>
+            `;
+            
+            document.getElementById('resultContent').innerHTML = content;
+            document.getElementById('downloadLink').href = data.download_url;
+        }
+
+        function processProperty() {
+            showLoading();
+            
+            const formData = new FormData(document.getElementById('propertyForm'));
+            
+            fetch('/api/process_property', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showResult(data);
+                } else {
+                    showError(data.error);
+                }
+            })
+            .catch(error => {
+                showError('Error de conexión: ' + error.message);
+            });
+        }
+
+        function processCSV() {
+            showLoading();
+            
+            const formData = new FormData(document.getElementById('csvForm'));
+            
+            fetch('/api/process_csv', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    let content = `
+                        <h6>Resultados del Procesamiento CSV:</h6>
+                        <ul class="list-unstyled">
+                            <li><strong>Propiedades Convertidas:</strong> ${data.converted_properties}</li>
+                            <li><strong>Tasa de Conversión:</strong> ${(data.conversion_rate * 100).toFixed(2)}%</li>
+                        </ul>
+                    `;
+                    
+                    document.getElementById('resultContent').innerHTML = content;
+                    document.getElementById('downloadLink').href = data.download_url;
+                    document.getElementById('resultSection').style.display = 'block';
+                    document.getElementById('loadingSection').style.display = 'none';
+                    document.getElementById('errorSection').style.display = 'none';
+                } else {
+                    showError(data.error);
+                }
+            })
+            .catch(error => {
+                showError('Error de conexión: ' + error.message);
+            });
+        }
+    </script>
+</body>
+</html>
