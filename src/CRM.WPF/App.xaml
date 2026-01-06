@@ -1,0 +1,9 @@
+<Application x:Class="CRM.WPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="Views/CmaPlugin/PropertyFormView.xaml">
+    <Application.Resources>
+        <!-- Global Converters -->
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,103 @@
+<Window x:Class="CRM.WPF.Views.CmaPlugin.CsvResultsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="CMA Results - Comparable Properties"
+        Height="600" Width="1000"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title -->
+        <TextBlock Grid.Row="0"
+                   Text="Comparable Properties Analysis"
+                   FontSize="18"
+                   FontWeight="Bold"
+                   Margin="0,0,0,10"/>
+
+        <!-- Summary Info -->
+        <Border Grid.Row="1"
+                Background="#F0F0F0"
+                Padding="10"
+                Margin="0,0,0,10"
+                BorderBrush="#CCC"
+                BorderThickness="1">
+            <StackPanel>
+                <TextBlock FontWeight="Bold" Margin="0,0,0,5">
+                    <Run Text="Subject Property: "/>
+                    <Run Text="{Binding SubjectAddress}" FontWeight="Normal"/>
+                </TextBlock>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="0,0,20,0">
+                        <Run Text="Operation: " FontWeight="Bold"/>
+                        <Run Text="{Binding Operation}" FontWeight="Normal"/>
+                    </TextBlock>
+                    <TextBlock Margin="0,0,20,0">
+                        <Run Text="Properties Found: " FontWeight="Bold"/>
+                        <Run Text="{Binding PropertyCount}" FontWeight="Normal"/>
+                    </TextBlock>
+                    <TextBlock>
+                        <Run Text="Generated: " FontWeight="Bold"/>
+                        <Run Text="{Binding GeneratedAt, StringFormat='{}{0:yyyy-MM-dd HH:mm}'}" FontWeight="Normal"/>
+                    </TextBlock>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- CSV Data Grid -->
+        <DataGrid Grid.Row="2"
+                  ItemsSource="{Binding Properties}"
+                  AutoGenerateColumns="True"
+                  IsReadOnly="True"
+                  AlternatingRowBackground="#F9F9F9"
+                  GridLinesVisibility="All"
+                  HeadersVisibility="All"
+                  CanUserResizeColumns="True"
+                  CanUserSortColumns="True"
+                  SelectionMode="Single"
+                  BorderBrush="#CCC"
+                  BorderThickness="1">
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#007ACC"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="Padding" Value="8,5"/>
+                    <Setter Property="BorderBrush" Value="#005A9E"/>
+                    <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+        </DataGrid>
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0,10,0,0">
+            <Button Content="Open CSV File"
+                    Command="{Binding OpenCsvCommand}"
+                    Width="120"
+                    Height="35"
+                    Margin="0,0,10,0"/>
+            <Button Content="Export to Excel"
+                    Command="{Binding ExportToExcelCommand}"
+                    Width="120"
+                    Height="35"
+                    Margin="0,0,10,0"
+                    IsEnabled="False"
+                    ToolTip="Coming soon"/>
+            <Button Content="Close"
+                    Command="{Binding CloseCommand}"
+                    Width="100"
+                    Height="35"/>
+        </StackPanel>
+    </Grid>
+</Window>
